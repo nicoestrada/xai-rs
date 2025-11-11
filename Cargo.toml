@@ -3,6 +3,10 @@ name = "xai-rs"
 version = "0.0.1"
 edition = "2021"
 description = "Rust SDK for xAI API - under active development"
+license = "MIT"
+repository = "https://github.com/nicoestrada/xai-rs"
+authors = ["Nico Estrada <ne13@illinois.edu>"]
+keywords = ["xai", "x-ai", "xai-api", "xai-rs"]
 
 [dependencies]
 tonic = { version = "0.12", features = ["gzip"] }
