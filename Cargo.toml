@@ -1,0 +1,16 @@
+[package]
+name = "xai-rs"
+version = "0.0.1"
+edition = "2021"
+description = "Rust SDK for xAI API - under active development"
+
+[dependencies]
+tonic = { version = "0.12", features = ["gzip"] }
+prost = "0.13"
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+thiserror = "1"
+futures = "0.3"
+
+[build-dependencies]
+tonic-build = "0.12"
+prost-build = "0.13"

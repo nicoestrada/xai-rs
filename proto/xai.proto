@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package xai;
+
+service XaiService {
+  rpc CallApi (CallRequest) returns (CallResponse);
+}
+
+message CallRequest {
+  string input = 1;
+}
+
+message CallResponse {
+  string output = 1;
+}
