@@ -10,10 +10,3 @@ impl RequestModel {
         }
     }
 }
-
-// Allows `client.call_api(req)` directly
-impl From<RequestModel> for crate::xai::CallRequest {
-    fn from(m: RequestModel) -> Self {
-        Self { input: m.input }
-    }
-}

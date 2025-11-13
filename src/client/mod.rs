@@ -1,5 +1,3 @@
-pub mod r#async;
-pub mod sync;
+pub mod async_client;
 
-pub use r#async::AsyncClient;
-pub use sync::Client;
+pub use async_client::AsyncClient;

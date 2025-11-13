@@ -1,69 +1,47 @@
 ## xAI Rust SDK (`xai-rs`)
 
-The **xAI Rust SDK** is a **gRPC-based** library for interacting with xAI's APIs in Rust.  
+The **xAI Rust SDK** is a gRPC client that lets you talk to xAI's chat models in Rust. It currently exposes an **asynchronous** client built on [`tonic`](https://github.com/hyperium/tonic).
 
-It mirrors the public API of the official [xAI Python SDK](https://github.com/xai-org/xai-sdk-python), providing **synchronous** (`Client`) and **asynchronous** (`AsyncClient`) interfaces.
-
--Uses the `tonic` crate for gRPC communication.
-
--Provides easy-to-use methods for common xAI API operations.
-
--Supports both sync and async programming models.
-
--Includes comprehensive error handling and type safety.
-
--Well-documented with examples for quick integration.
-
--Actively maintained to keep up with xAI API changes.
+### Features
+- Async `AsyncClient` for calling `GetCompletion`
+- Generated protobuf types from xAI's published `.proto` files
+- Helper builders to construct chat messages (`ChatMessage`) and requests (`build_request`)
 
 #### ***This is a work in progress and not all features of the xAI Python SDK are implemented yet.***
 
-## Installation
-
-Add the following to your `Cargo.toml`:
-
-```toml
-[dependencies]
-xai-rs = "0.0.1"
-tonic = "0.7"
-tokio = { version = "1", features = ["full"] } # For async support
-```
-
 ## Usage
 
-### Synchronous Client
-
 ```rust
-use xai_rs::{Client, RequestModel, XaiError};
-
-fn main() -> Result<(), XaiError> {
-    let mut client = Client::new("sk-...")?;
-    let req = RequestModel::new("Hello, xAI!");
-    let resp = client.call_api(req)?;
-    println!("Response: {resp}");
-    Ok(())
-}
-```
-
-### Asynchronous Client
-
-```rust
-use xai_rs::{AsyncClient, RequestModel, XaiError};
-use tokio;
+use xai_rs::{
+    models::{build_request, ChatMessage},
+    AsyncClient, XaiError,
+};
 
 #[tokio::main]
 async fn main() -> Result<(), XaiError> {
-    let mut client = AsyncClient::new("sk-...").await?;
-    let req = RequestModel::new("Hello, xAI!");
-    let resp = client.call_api(req).await?;
-    println!("Response: {resp}");
+    // Expect an xAI API key in the environment.
+    let api_key = std::env::var("XAI_API_KEY")?;
+
+    // Build the client and request.
+    let mut client = AsyncClient::new(api_key).await?;
+    let request = build_request(
+        vec![ChatMessage::user("Hello, xAI!")],
+        std::env::var("XAI_MODEL").as_deref().unwrap_or("grok-code-fast-1"),
+    );
+
+    let response = client.get_completion(request).await?;
+    if let Some(message) = response
+        .get_ref()
+        .outputs
+        .first()
+        .and_then(|output| output.message.as_ref())
+    {
+        println!("{}", message.content);
+    }
+
     Ok(())
 }
 ```
-
-## Documentation
-
-Not available at the moment.
 
 ## Contributing
 

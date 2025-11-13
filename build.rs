@@ -1,7 +1,5 @@
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() {
     tonic_build::configure()
-        .build_client(true)
-        .build_server(false)
-        .compile_protos(&["proto/xai.proto"], &["proto"])?;
-    Ok(())
+        .compile_protos(&["proto/xai/api/v1/chat.proto"], &["proto"])
+        .unwrap();
 }

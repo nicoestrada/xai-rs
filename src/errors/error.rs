@@ -1,4 +1,5 @@
 use thiserror::Error;
+use tonic::Status;
 
 #[derive(Error, Debug)]
 pub enum XaiError {
@@ -6,7 +7,7 @@ pub enum XaiError {
     Transport(#[from] tonic::transport::Error),
 
     #[error("gRPC status: {0}")]
-    Status(#[from] tonic::Status),
+    Status(#[from] Status),
 
     #[error("Invalid API key")]
     InvalidApiKey,
