@@ -6,7 +6,6 @@ use tonic::{
     Request,
 };
 
-// Pull the generated module from OUT_DIR
 pub mod xai_api {
     tonic::include_proto!("xai_api");
 }
