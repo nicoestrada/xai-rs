@@ -2,8 +2,13 @@
 
 The **xAI Rust SDK** is a gRPC client that lets you talk to xAI's chat models in Rust. It currently exposes an **asynchronous** client built on [`tonic`](https://github.com/hyperium/tonic).
 
+### Status
+- Early preview focused on chat completions (`GetCompletion`)
+- Only asynchronous usage is supported today
+- Expect breaking changes while the API surface grows
+
 ### Features
-- Async `AsyncClient` for calling `GetCompletion`
+- Async `AsyncClient` that authenticates with the xAI API
 - Generated protobuf types from xAI's published `.proto` files
 - Helper builders to construct chat messages (`ChatMessage`) and requests (`build_request`)
 
@@ -45,7 +50,8 @@ async fn main() -> Result<(), XaiError> {
 
 ## Contributing
 
-Contributions are welcome! Please open issues or submit pull requests on the GitHub repository.
+Contributions are welcome! Please open issues or submit pull requests on the GitHub repository.  
+Open gaps include streaming responses, additional RPCs (images, models, telemetry, etc.), a sync client, retries, and richer error types.
 
 ## License
 
