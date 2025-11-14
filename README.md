@@ -12,6 +12,9 @@ The **xAI Rust SDK** is a gRPC client that lets you talk to xAI's chat models in
 - Generated protobuf types from xAI's published `.proto` files
 - Helper builders to construct chat messages (`ChatMessage`) and requests (`build_request`)
 
+### Examples
+- Simple chat completion example in the `examples/` folder
+
 #### ***This is a work in progress and not all features of the xAI Python SDK are implemented yet.***
 
 ## Usage

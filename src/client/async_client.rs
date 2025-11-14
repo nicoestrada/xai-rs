@@ -54,15 +54,16 @@ impl AsyncClient {
     }
 
     // Streaming completion (optional)
-    // pub async fn get_completion_chunk(
-    //     &mut self,
-    //     req: xai_api::GetCompletionsRequest,
-    // ) -> Result<tonic::Response<tonic::Streaming<xai_api::GetChatCompletionChunk>>, XaiError> {
-    //     let mut request = Request::new(req);
-    //     request
-    //         .metadata_mut()
-    //         .insert("authorization", format!("Bearer {}", self.api_key).parse().unwrap());
-    //
-    //     Ok(self.inner.get_completion_chunk(request).await?)
-    // }
+    pub async fn get_completion_chunk(
+        &mut self,
+        req: xai_api::GetCompletionsRequest,
+    ) -> Result<tonic::Response<tonic::Streaming<xai_api::GetChatCompletionChunk>>, XaiError> {
+        let mut request = Request::new(req);
+        request.metadata_mut().insert(
+            "authorization",
+            format!("Bearer {}", self.api_key).parse().unwrap(),
+        );
+
+        Ok(self.inner.get_completion_chunk(request).await?)
+    }
 }
