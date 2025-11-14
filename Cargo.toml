@@ -15,6 +15,7 @@ tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 thiserror = "1"
 futures = "0.3"
 prost-types = "0.13"
+dotenv = "0.15"
 
 [build-dependencies]
 tonic-build = "0.12"
@@ -25,4 +26,4 @@ walkdir = "2"
 
 [[bin]]
 name = "chat"
-path = "src/chat.rs"
+path = "examples/chat.rs"
