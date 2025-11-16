@@ -19,13 +19,20 @@ async fn main() -> Result<(), XaiError> {
     let mut client = AsyncClient::new(&api_key).await?;
 
     let req = build_request(
-        vec![ChatMessage::user("What are the latest updates from xAI?")],
+        vec![ChatMessage::user(
+            "Write a small script to count the number of words in a given text. Then use a web search to find out how many words are in the US Declaration of Independence and run the script on that text.",
+        )],
         &model,
     )
+    // you can modify tool selection for agent here. See models/mod.rs for available tools
+    // keep in mind tradeoffs for giving access
     .with_tools(vec![
         ToolDefinition::web_search(),
         ToolDefinition::x_search(),
         ToolDefinition::code_execution(),
+        //ToolDefinition::document_search(),
+        //ToolDefinition::collection_search(),
+        //ToolDefinition::mcp(),
     ]);
 
     let mut stream = client.get_completion_chunk(req).await?.into_inner();
@@ -38,6 +45,7 @@ async fn main() -> Result<(), XaiError> {
         for output in chunk.outputs {
             if let Some(delta) = output.delta {
                 for tool_call in delta.tool_calls {
+                    println!("Running {:#?} tool...", tool_call.r#type());
                     if let Some(tool_call::Tool::Function(function)) = tool_call.tool {
                         println!(
                             "\nCalling tool: {} with arguments: {}",
