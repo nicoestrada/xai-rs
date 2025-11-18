@@ -20,7 +20,7 @@ async fn main() -> Result<(), XaiError> {
 
     let req = build_request(
         vec![ChatMessage::user(
-            "Write a small script to count the number of words in a given text. Then use a web search to find out how many words are in the US Declaration of Independence and run the script on that text.",
+            "If xAI released a model called grok-4.1, what would the endpoint be to access it?",
         )],
         &model,
     )
