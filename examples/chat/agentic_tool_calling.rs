@@ -14,7 +14,7 @@ async fn main() -> Result<(), XaiError> {
         .map_err(|e| XaiError::Status(tonic::Status::internal(e.to_string())))?;
 
     // grok-4-fast is strongly recommended for agentic tool calling
-    let model = env::var("XAI_MODEL").unwrap_or_else(|_| "grok-4-fast".to_owned());
+    let model = env::var("XAI_MODEL").unwrap_or_else(|_| "grok-4-1-fast-reasoning".to_owned());
 
     let mut client = AsyncClient::new(&api_key).await?;
 
