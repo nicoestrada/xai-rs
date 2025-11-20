@@ -23,3 +23,15 @@ tonic-build = "0.12"
 prost-build = "0.13"
 fs_extra = "1.3"
 walkdir = "2"
+
+[[example]]
+name = "agentic_tool_calling"
+path = "examples/chat/agentic_tool_calling.rs"
+
+[[example]]
+name = "chat_unary"
+path = "examples/chat/chat_unary.rs"
+
+[[example]]
+name = "chat_server_streaming"
+path = "examples/chat/chat_server_streaming.rs"
