@@ -22,7 +22,7 @@ Alternatively, add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-xai-rs = "0.0.6"
+xai-rs = "0.0.8"
 ```
 
 ### Examples
