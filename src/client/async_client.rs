@@ -1,6 +1,7 @@
 // src/client/async.rs
 
 use crate::errors::XaiError;
+use std::time::Duration;
 use tonic::{
     transport::{Channel, ClientTlsConfig},
     Request,
@@ -26,6 +27,7 @@ impl AsyncClient {
             .with_native_roots()
             .domain_name("api.x.ai");
         let channel = Channel::from_static("https://api.x.ai")
+            .timeout(Duration::from_secs(3600))
             .tls_config(tls)?
             .connect()
             .await?;
